@@ -20,7 +20,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener{
 	private Color bg;
 	private int x = 0, y = 0, bpm = 0;
 	public static JFrame frame = new JFrame("Snake");
-	public JPanel main = new JPanel();
+	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel();
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -29,14 +29,15 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener{
 	public MainPanel(int bpm) {
 		bg = new Color(0,0,0);
 		frame.setLayout(new BorderLayout());
-		frame.getContentPane().add(main);
-		//frame.getContentPane().setBackground(bg);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(2000, 720);
-		main.setSize(300,200);
+		frame.setSize(1920, 1080);
 		frame.add(main, BorderLayout.CENTER);
-		main.setVisible(true);
-		frame.setVisible(true);
+		frame.add(side1, BorderLayout.EAST);
+		frame.add(side2, BorderLayout.WEST);
+		side1.add(new JLabel("Side 1"));
+		side2.add(new JLabel("Side 2"));
+		side1.setBackground(bg);
+		side2.setBackground(bg);
 		this.bpm = bpm;
 		setToMainMenu(bpm);
 	}
@@ -44,10 +45,12 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener{
 	public void setToMainMenu(int b) {
 		ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
 		JLabel menu = new JLabel(image);
+		menu.setSize(1020,20);
 		main.add(menu);
-		frame.pack();
+		//frame.pack();
 		animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
+		frame.setVisible(true);
 	}
 	
 	@Override
