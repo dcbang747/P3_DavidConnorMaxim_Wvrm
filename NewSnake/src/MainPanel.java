@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -30,14 +31,14 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener{
 		bg = new Color(0,0,0);
 		frame.setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1920, 1080);
 		frame.add(main, BorderLayout.CENTER);
 		frame.add(side1, BorderLayout.EAST);
 		frame.add(side2, BorderLayout.WEST);
-		side1.add(new JLabel("Side 1"));
-		side2.add(new JLabel("Side 2"));
+		side1.setPreferredSize(new Dimension(480,0));
+		side2.setPreferredSize(new Dimension(480,0));
 		side1.setBackground(bg);
 		side2.setBackground(bg);
+		main.setBackground(bg);
 		this.bpm = bpm;
 		setToMainMenu(bpm);
 	}
@@ -47,10 +48,11 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener{
 		JLabel menu = new JLabel(image);
 		menu.setSize(1020,20);
 		main.add(menu);
-		//frame.pack();
+		frame.pack();
 		animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
 		frame.setVisible(true);
+		frame.setResizable(false);
 	}
 	
 	@Override
