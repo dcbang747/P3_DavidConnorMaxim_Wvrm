@@ -33,6 +33,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	public static JFrame frame = new JFrame("Snake");
 	//creating panels for the sides.
 	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel();
+	//creating board
+	Tiles mainBoard = new Tiles();
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -159,7 +161,20 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		switch(arg0.getKeyCode()) { //recives button input and asks for movement
+		case 38: //up
+			mainBoard.move(1);			
+			break;
+		case 40: //down
+			mainBoard.move(2);
+			break;
+		case 37: //left
+			mainBoard.move(3);
+			break;
+		case 39://right
+			mainBoard.move(4);
+			break;
+		}
 	}
 
 	@Override
