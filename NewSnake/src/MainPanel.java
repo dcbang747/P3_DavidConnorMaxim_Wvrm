@@ -133,6 +133,10 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		
 	}
 	
+	public void update() {
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
