@@ -32,8 +32,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private JLabel menu = new JLabel(image);
 	private JButton optionsButton = new JButton(new ImageIcon(getClass().getResource("OptionsButton (1).png")));
 	private JButton startButton = new JButton(new ImageIcon(getClass().getResource("StartButton.png")));
-	private ImageIcon exitImg = new ImageIcon(new ImageIcon(getClass().getResource("ExitButton.png")).getImage().getScaledInstance(138, 75, java.awt.Image.SCALE_DEFAULT));
-	private JButton exitButton = new JButton(exitImg);
+	private JButton exitButton = new JButton(new ImageIcon(getClass().getResource("ExitButton.png")));
+	private JButton backButton = new JButton(new ImageIcon(getClass().getResource("BackButton.png")));
 	private Tiles start = new Tiles();
 	public static JFrame frame = new JFrame("Snake");
 	//creating panels for the sides.
@@ -97,7 +97,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		exitButton.setBorder(BorderFactory.createEmptyBorder());
 		exitButton.setBackground(bg);
 		exitButton.addActionListener(this);
-		exitButton.setPreferredSize(startButton.getSize());
 		c.weightx = 0.3;
 		c.gridwidth = 1;
 		c.gridy = 1;
@@ -117,15 +116,17 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		GridBagConstraints c = new GridBagConstraints();
 		options.setLayout(g);
 		
-		JButton back = new JButton("<- Back");
-		back.addActionListener(new ActionListener() {
+		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			setToMainMenu();
 			}
 		});
+		backButton.setBorder(BorderFactory.createEmptyBorder());
+		backButton.setBackground(bg);
+		backButton.addActionListener(this);
 		c.gridx = 0;
 		c.gridy = 0;
-		options.add(back, c);
+		options.add(backButton, c);
 		
 	}
 	public void setToOptions() {
