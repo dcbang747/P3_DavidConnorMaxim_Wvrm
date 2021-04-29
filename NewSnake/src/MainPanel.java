@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,9 +33,10 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private JButton exitButton = new JButton(new ImageIcon(getClass().getResource("ExitButton.png")));
 	private JButton optionsButton = new JButton(new ImageIcon(getClass().getResource("OptionsButton (1).png")));
 	private JButton startButton = new JButton(new ImageIcon(getClass().getResource("StartButton.png")));
+	private Tiles start = new Tiles();
 	public static JFrame frame = new JFrame("Snake");
 	//creating panels for the sides.
-	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel(), options = new JPanel();
+	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel(), options = new JPanel(), game = new JPanel();
 	//creating board
 	Tiles mainBoard = new Tiles();
 	
@@ -74,6 +76,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		
 		startButton.setBorder(BorderFactory.createEmptyBorder());
 		startButton.setBackground(bg);
+		startButton.addActionListener(this);
 		c.gridwidth = 1;
 		c.weightx = 0.3;
 		c.gridy = 1;
@@ -112,14 +115,22 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.validate();
 		
 	}
-	public void setToGame() {
-		
-	} 
 	
-	public void setUp(int bpm) {
+	public void setUp(int bpm, Tiles f) {
+
+		
 		this.bpm = bpm;
 		Timer animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
+		GridLayout g = new GridLayout(10, 10);
+		game.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
+		game.setBackground(bg);
+		game.setLayout(g);
+		frame.remove(main);
+		frame.add(game);
+		frame.validate();
+		
+		
 	}
 	
 	@Override
@@ -132,7 +143,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 			frame.dispose();
 		}
 		if(e.getSource().equals(startButton)) {
-			this.setUp(bpm);
+			this.setUp(bpm, start);
 		}
 	}
 
