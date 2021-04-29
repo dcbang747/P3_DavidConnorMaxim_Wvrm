@@ -27,12 +27,14 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	//private Timer animationTimer;
 	private Color bg;
 	private int x = 0, y = 0, bpm = 130;
+	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
+	private JLabel menu = new JLabel(image);
 	private JButton exitButton = new JButton(new ImageIcon(getClass().getResource("ExitButton.png")));
-	private JButton optionsButton = new JButton(new ImageIcon(getClass().getResource("OptionsButton.png")));
+	private JButton optionsButton = new JButton(new ImageIcon(getClass().getResource("OptionsButton (1).png")));
 	private JButton startButton = new JButton(new ImageIcon(getClass().getResource("StartButton.png")));
 	public static JFrame frame = new JFrame("Snake");
 	//creating panels for the sides.
-	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel();
+	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel(), options = new JPanel();
 	//creating board
 	Tiles mainBoard = new Tiles();
 	
@@ -63,8 +65,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		GridBagConstraints c = new GridBagConstraints();
 		main.setLayout(g);
 		
-		ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
-		JLabel menu = new JLabel(image);
 		menu.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
 		c.fill = GridBagConstraints.NONE;
 		c.gridwidth = 3;
@@ -82,6 +82,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		
 		optionsButton.setBorder(BorderFactory.createEmptyBorder());
 		optionsButton.setBackground(bg);
+		optionsButton.addActionListener(this);
 		c.gridwidth = 1;
 		c.weightx = 0.3;
 		c.gridy = 1;
@@ -104,6 +105,11 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	}
 	
 	public void setToOptions() {
+		frame.remove(main);
+		options.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
+		options.setBackground(bg);
+		frame.add(options, BorderLayout.CENTER);
+		frame.validate();
 		
 	}
 	public void setToGame() {
@@ -119,7 +125,9 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("beat");
+		if(e.getSource().equals(optionsButton)) {
+			this.setToOptions();
+		}
 		if(e.getSource().equals(exitButton)) {
 			frame.dispose();
 		}
