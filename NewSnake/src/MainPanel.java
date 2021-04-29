@@ -30,9 +30,10 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private int x = 0, y = 0, bpm = 130;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
 	private JLabel menu = new JLabel(image);
-	private JButton exitButton = new JButton(new ImageIcon(getClass().getResource("ExitButton.png")));
 	private JButton optionsButton = new JButton(new ImageIcon(getClass().getResource("OptionsButton (1).png")));
 	private JButton startButton = new JButton(new ImageIcon(getClass().getResource("StartButton.png")));
+	private ImageIcon exitImg = new ImageIcon(new ImageIcon(getClass().getResource("ExitButton.png")).getImage().getScaledInstance(138, 75, java.awt.Image.SCALE_DEFAULT));
+	private JButton exitButton = new JButton(exitImg);
 	private Tiles start = new Tiles();
 	public static JFrame frame = new JFrame("Snake");
 	//creating panels for the sides.
@@ -96,6 +97,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		exitButton.setBorder(BorderFactory.createEmptyBorder());
 		exitButton.setBackground(bg);
 		exitButton.addActionListener(this);
+		exitButton.setPreferredSize(startButton.getSize());
 		c.weightx = 0.3;
 		c.gridwidth = 1;
 		c.gridy = 1;
