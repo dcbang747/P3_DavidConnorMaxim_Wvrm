@@ -58,10 +58,11 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		side1.setBackground(bg);
 		side2.setBackground(bg);
 		main.setBackground(bg);
-		setToMainMenu();
+		initOptions();
+		initMainMenu();
 	}
 	
-	public void setToMainMenu() {
+	public void initMainMenu() {
 		// initializing the menu; making the central panel display 
 		GridBagLayout g = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -107,15 +108,34 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		
 	}
 	
-	public void setToOptions() {
-		frame.remove(main);
+	public void initOptions() {
 		options.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
 		options.setBackground(bg);
-		frame.add(options, BorderLayout.CENTER);
-		frame.validate();
+		GridBagLayout g = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();
+		options.setLayout(g);
+		
+		JButton back = new JButton("<- Back");
+		back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			setToMainMenu();
+			}
+		});
+		c.gridx = 0;
+		c.gridy = 0;
+		options.add(back, c);
 		
 	}
-	
+	public void setToOptions() {
+		frame.remove(main);
+		frame.add(options, BorderLayout.CENTER);
+		frame.revalidate();
+	}
+	public void setToMainMenu() {
+		frame.remove(options);
+		frame.add(main, BorderLayout.CENTER);
+		frame.revalidate();
+	}
 	public void setUp(int bpm, Tiles f) {
 
 		
