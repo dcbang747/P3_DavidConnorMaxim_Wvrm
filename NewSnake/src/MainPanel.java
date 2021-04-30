@@ -32,8 +32,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private JLabel menu = new JLabel(image);
 	private JButton optionsButton = new JButton(new ImageIcon(getClass().getResource("OptionsButton (1).png")));
 	private JButton startButton = new JButton(new ImageIcon(getClass().getResource("StartButton.png")));
-	private ImageIcon exitImg = new ImageIcon(new ImageIcon(getClass().getResource("ExitButton.png")).getImage().getScaledInstance(138, 75, java.awt.Image.SCALE_DEFAULT));
-	private JButton exitButton = new JButton(exitImg);
+	private JButton exitButton = new JButton(new ImageIcon(getClass().getResource("ExitButton (1).png")));
 	private Tiles start = new Tiles();
 	public static JFrame frame = new JFrame("Snake");
 	//creating panels for the sides.
@@ -52,10 +51,11 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.setLayout(new BorderLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(main, BorderLayout.CENTER);
-		frame.add(side1, BorderLayout.EAST);
-		frame.add(side2, BorderLayout.WEST);
+		//frame.add(side1, BorderLayout.EAST);
+		// .add(side2, BorderLayout.WEST);
 		side1.setPreferredSize(new Dimension(480,0));
 		side2.setPreferredSize(new Dimension(480,0));
+		main.setPreferredSize(new Dimension(1440,800));
 		side1.setBackground(bg);
 		side2.setBackground(bg);
 		main.setBackground(bg);
@@ -75,12 +75,13 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		c.gridx = 0;
 		c.gridy = 0;
 		main.add(menu, c);
+		System.out.println(image.getIconWidth() + " "+ image.getIconHeight());
 		
 		startButton.setBorder(BorderFactory.createEmptyBorder());
 		startButton.setBackground(bg);
 		startButton.addActionListener(this);
 		c.gridwidth = 1;
-		c.weightx = 0.3;
+		c.weightx = 0.25;
 		c.gridy = 1;
 		c.gridx = 0;
 		main.add(startButton, c);
@@ -89,7 +90,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		optionsButton.setBackground(bg);
 		optionsButton.addActionListener(this);
 		c.gridwidth = 1;
-		c.weightx = 0.3;
+		c.weightx = 0.25;
 		c.gridy = 1;
 		c.gridx = 1;
 		main.add(optionsButton, c);
@@ -97,8 +98,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		exitButton.setBorder(BorderFactory.createEmptyBorder());
 		exitButton.setBackground(bg);
 		exitButton.addActionListener(this);
-		exitButton.setPreferredSize(startButton.getSize());
-		c.weightx = 0.3;
+		c.weightx = 0.25;
 		c.gridwidth = 1;
 		c.gridy = 1;
 		c.gridx = 2;
@@ -117,7 +117,9 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		GridBagConstraints c = new GridBagConstraints();
 		options.setLayout(g);
 		
-		JButton back = new JButton("<- Back");
+		JButton back = new JButton(new ImageIcon(getClass().getResource("BackButton.png")));
+		back.setBorder(BorderFactory.createEmptyBorder());
+		back.setBackground(bg);
 		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			setToMainMenu();
@@ -129,13 +131,11 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		
 	}
 	public void setToOptions() {
-		frame.remove(main);
-		frame.add(options, BorderLayout.CENTER);
+		frame.setContentPane(options);
 		frame.revalidate();
 	}
 	public void setToMainMenu() {
-		frame.remove(options);
-		frame.add(main, BorderLayout.CENTER);
+		frame.setContentPane(main);
 		frame.revalidate();
 	}
 	public void setUp(int bpm, Tiles f) {
@@ -148,9 +148,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		game.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
 		game.setBackground(bg);
 		game.setLayout(g);
-		frame.remove(main);
-		frame.add(game);
-		frame.validate();
+		frame.setContentPane(game);
+		frame.revalidate();
 		
 		
 	}
