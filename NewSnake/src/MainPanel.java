@@ -32,7 +32,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private JLabel menu = new JLabel(image);
 	private JButton optionsButton = new JButton(new ImageIcon(getClass().getResource("OptionsButton (1).png")));
 	private JButton startButton = new JButton(new ImageIcon(getClass().getResource("StartButton.png")));
-	private JButton exitButton = new JButton(new ImageIcon(getClass().getResource("ExitButton (1).png")));
+	private JButton exitButton = new JButton(new ImageIcon(getClass().getResource("ExitButton.png")));
+
 	private Tiles start = new Tiles();
 	public static JFrame frame = new JFrame("Snake");
 	//creating panels for the sides.
@@ -98,7 +99,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		exitButton.setBorder(BorderFactory.createEmptyBorder());
 		exitButton.setBackground(bg);
 		exitButton.addActionListener(this);
-		c.weightx = 0.25;
+		c.weightx = 0.3;
 		c.gridwidth = 1;
 		c.gridy = 1;
 		c.gridx = 2;
