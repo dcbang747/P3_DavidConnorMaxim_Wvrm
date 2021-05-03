@@ -49,6 +49,9 @@ public class Tiles {
 		}
 	}
 	
+	public int[][] getTileId(){
+		return tileId;
+	}
 	//-----------------------------------------------------------------------------------------------
 	
 	public void move(int dir) { // moves depending on the button input

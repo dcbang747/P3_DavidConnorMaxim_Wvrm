@@ -30,6 +30,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private int x = 0, y = 0, bpm = 130;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
 	private JLabel menu = new JLabel(image);
+	private JLabel snakeHead = new JLabel(new ImageIcon(getClass().getResource("SnakeHead.png")));
+	private JLabel snakeBody = new JLabel(new ImageIcon(getClass().getResource("SnakeBody.png")));
 	private JButton optionsButton = new JButton(new ImageIcon(getClass().getResource("OptionsButton (1).png")));
 	private JButton startButton = new JButton(new ImageIcon(getClass().getResource("StartButton.png")));
 	private JButton exitButton = new JButton(new ImageIcon(getClass().getResource("ExitButton.png")));
@@ -149,6 +151,13 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		game.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
 		game.setBackground(bg);
 		game.setLayout(g);
+		
+		for(int i = 0; i < f.getTileId().length; i++) {
+			for(int j = 0; j < f.getTileId()[0].length; j++) {
+				if
+			}
+		}
+		
 		frame.setContentPane(game);
 		frame.revalidate();
 		
