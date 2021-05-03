@@ -142,25 +142,36 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.revalidate();
 	}
 	public void setUp(int bpm, Tiles f) {
-
+		frame.remove(main);
 		
+		
+		DisplayTile[][] b = new DisplayTile[15][10];
 		this.bpm = bpm;
 		Timer animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
-		GridLayout g = new GridLayout(10, 10);
+		GridLayout g = new GridLayout(16, 10);
+		BorderLayout e = new BorderLayout();
+		frame.setLayout(e);
+		
 		game.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
+		game.setMaximumSize(game.getPreferredSize());
+		game.setMinimumSize(game.getPreferredSize());
 		game.setBackground(bg);
 		game.setLayout(g);
 		
-		for(int i = 0; i < f.getTileId().length; i++) {
-			for(int j = 0; j < f.getTileId()[0].length; j++) {
-				if
+		for(int i = 0; i < b.length; i++) {
+			for(int j = 0; j < b[0].length; j++) {
+				b[i][j] = new DisplayTile();
+				b[i][j].setValue(f.getTileId()[i][j]);
+				game.add(b[i][j]);
 			}
 		}
 		
-		frame.setContentPane(game);
+		frame.add(game);
+		frame.add(side1, BorderLayout.WEST);
+		frame.add(side2, BorderLayout.EAST);
 		frame.revalidate();
-		
+
 		
 	}
 	

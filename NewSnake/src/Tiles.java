@@ -21,8 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 public class Tiles {
-	int[][] tileId = new int[10][10];
-	int[][] tileTime = new int[10][10];
+	int[][] tileId = new int[15][10];
+	int[][] tileTime = new int[15][10];
 	int length = 5;
 	int rot = 1;
 	int ttd = 10; // time to death
@@ -79,7 +79,7 @@ public class Tiles {
 	
 	public void check(int x, int y){ // checks for collision from movement and moves the head
 		int r = 0, c = 0;
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 15; i++) {
 			for(int j = 0; j < 10; j++) { // iterates through the entire array to find the head
 				if(tileId[i][j] == 1) {
 					r = i;
