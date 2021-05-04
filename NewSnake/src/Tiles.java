@@ -35,9 +35,8 @@ public class Tiles {
 	 * */
 	public Tiles() {
 		ttd = 10;
-		tileId[4][4] = 1; // sets head tile to center of 10X10 grid
 		for(int i = 0; i < tileId.length; i++) {
-			for(int j = 0; j < tileId.length; j++) {
+			for(int j = 0; j < tileId[0].length; j++) {
 				//Initializes body based on length
 				if(i > 4 && i < 4+length && j == 7) {
 					tileId[i][j] = 2;
@@ -47,6 +46,7 @@ public class Tiles {
 				
 			}
 		}
+		tileId[4][7] = 1; // sets head tile to center of 10X10 grid
 	}
 	
 	public int[][] getTileId(){
@@ -79,8 +79,8 @@ public class Tiles {
 	
 	public void check(int x, int y){ // checks for collision from movement and moves the head
 		int r = 0, c = 0;
-		for(int i = 0; i < 15; i++) {
-			for(int j = 0; j < 10; j++) { // iterates through the entire array to find the head
+		for(int i = 0; i < tileId.length; i++) {
+			for(int j = 0; j < tileId[0].length; j++) { // iterates through the entire array to find the head
 				if(tileId[i][j] == 1) {
 					r = i;
 					c = j;
@@ -89,7 +89,7 @@ public class Tiles {
 		}
 		if(tileId[r+x][c+y] == 0) { // if Id of 0 replaces and moves head in the predefined direction
 			tileId[r+x][c+y] = 1; // Moves Head in correct direction
-			tileId[r][c] = 3; // Sets old head to body in direction
+			tileId[r][c] = 2; // Sets old head to body in direction
 		}else if(tileId[r+x][c+y] == 2) { // same first operation but add 1 length (FOOD CONSUMED)
 			tileId[r+x][c+y] = 1;
 			tileId[r][c] = 3;

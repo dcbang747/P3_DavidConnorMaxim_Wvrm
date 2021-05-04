@@ -35,8 +35,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private JButton optionsButton = new JButton(new ImageIcon(getClass().getResource("OptionsButton (1).png")));
 	private JButton startButton = new JButton(new ImageIcon(getClass().getResource("StartButton.png")));
 	private JButton exitButton = new JButton(new ImageIcon(getClass().getResource("ExitButton.png")));
-
-	private Tiles start = new Tiles();
+	private DisplayTile[][] b = new DisplayTile[15][10];
 	public static JFrame frame = new JFrame("Snake");
 	//creating panels for the sides.
 	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel(), options = new JPanel(), game = new JPanel();
@@ -145,7 +144,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.remove(main);
 		
 		
-		DisplayTile[][] b = new DisplayTile[15][10];
+		
 		this.bpm = bpm;
 		Timer animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
@@ -154,6 +153,9 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.setLayout(e);
 		
 		game.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
+		game.addKeyListener(this);
+		game.setFocusable(true);	
+		game.requestFocusInWindow();
 		game.setMaximumSize(game.getPreferredSize());
 		game.setMinimumSize(game.getPreferredSize());
 		game.setBackground(bg);
@@ -166,17 +168,19 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 				game.add(b[i][j]);
 			}
 		}
-		
 		frame.add(game);
 		frame.add(side1, BorderLayout.WEST);
 		frame.add(side2, BorderLayout.EAST);
 		frame.revalidate();
-
 		
 	}
 	
-	public void update() {
-		
+	public void update(Tiles f) {
+		for(int i = 0; i < b.length; i++) {
+			for(int j = 0; j < b[0].length; j++) {
+				b[i][j].setValue(f.getTileId()[i][j]);
+			}
+		}
 	}
 	
 	@Override
@@ -189,7 +193,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 			frame.dispose();
 		}
 		if(e.getSource().equals(startButton)) {
-			this.setUp(bpm, start);
+			this.setUp(bpm, mainBoard);
 		}
 	}
 
@@ -240,6 +244,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 			mainBoard.move(4);
 			break;
 		}
+		System.out.println("pressed");
+		update(mainBoard);
 	}
 
 	@Override
