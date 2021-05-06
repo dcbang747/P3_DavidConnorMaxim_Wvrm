@@ -23,10 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 
 public class MainPanel extends JPanel implements MouseListener, ActionListener, KeyListener{
 	//private Timer animationTimer;
-	private Color bg;
+	private Color bg, sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 	private int x = 0, y = 0, bpm = 130, upPress = 0;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
 	private JLabel menu = new JLabel(image);
@@ -161,6 +162,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		
 		game.setMaximumSize(game.getPreferredSize());
 		game.setMinimumSize(game.getPreferredSize());
+		game.setBorder(new MatteBorder(3,3,3, 3, sideColor));
 		game.setBackground(bg);
 		game.setLayout(g);
 		
@@ -184,6 +186,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 			for(int j = 0; j < b[0].length; j++) {
 				b[i][j].setValue(f.getTileId()[i][j]);
 			}
+			sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
+			game.setBorder(new MatteBorder(3,3,3, 3, sideColor));
 		}
 	}
 	
