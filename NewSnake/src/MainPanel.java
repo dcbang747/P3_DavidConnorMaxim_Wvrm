@@ -152,10 +152,13 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		BorderLayout e = new BorderLayout();
 		frame.setLayout(e);
 		
+		frame.setFocusable(true);
+		frame.requestFocusInWindow();
+		
 		game.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
 		game.addKeyListener(this);
-		game.setFocusable(true);	
-		game.requestFocusInWindow();
+		game.setFocusable(true);
+		
 		game.setMaximumSize(game.getPreferredSize());
 		game.setMinimumSize(game.getPreferredSize());
 		game.setBackground(bg);
@@ -172,6 +175,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.add(side1, BorderLayout.WEST);
 		frame.add(side2, BorderLayout.EAST);
 		frame.revalidate();
+		game.requestFocusInWindow();
 		
 	}
 	
@@ -232,16 +236,16 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		// TODO Auto-generated method stub
 		switch(arg0.getKeyCode()) { //recives button input and asks for movement
 		case 38: //up
-			mainBoard.move(1);			
+			mainBoard.move(3);			
 			break;
 		case 40: //down
-			mainBoard.move(2);
+			mainBoard.move(4);
 			break;
 		case 37: //left
-			mainBoard.move(3);
+			mainBoard.move(1);
 			break;
 		case 39://right
-			mainBoard.move(4);
+			mainBoard.move(2);
 			break;
 		}
 		System.out.println("pressed");

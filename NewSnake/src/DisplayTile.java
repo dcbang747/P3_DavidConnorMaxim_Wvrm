@@ -13,7 +13,7 @@ public class DisplayTile extends JLabel{
 	public DisplayTile() {
 		setOpaque(true);
 		this.setBackground(Color.black);
-		MatteBorder matte = new MatteBorder(2, 2, 2, 2, Color.BLACK);
+		MatteBorder matte = new MatteBorder(2, 2, 2, 2, Color.GRAY);
 		this.setBorder(matte);
 	}
 	

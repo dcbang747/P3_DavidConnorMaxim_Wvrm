@@ -55,6 +55,7 @@ public class Tiles {
 	//-----------------------------------------------------------------------------------------------
 	
 	public void move(int dir) { // moves depending on the button input
+		timeAdv();
 		if(dir != rot) {
 			rot = dir;
 			if(dir == 1) { 
@@ -117,6 +118,7 @@ public class Tiles {
 	
 	public void timeAdv() {
 		// TODO updates all decay timings
+		ttd--;
 	}
 	
 }	
