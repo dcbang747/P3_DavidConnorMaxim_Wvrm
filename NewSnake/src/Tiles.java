@@ -58,6 +58,7 @@ public class Tiles {
 		timeAdv();
 		if(dir != rot) {
 			rot = dir;
+		}
 			if(dir == 1) { 
 				check(0,-1);
 				// TODO sets body to up direction (UP)
@@ -71,9 +72,7 @@ public class Tiles {
 				check(1,0);
 				// TODO sets body to right direction (RIGHT)
 			}
-		}else{
-			length --; // IF unable to move, ROT will be the same as before which incurs a penalty
-		}
+			
 	}
 	
 	//-----------------------------------------------------------------------------------------------
@@ -88,9 +87,10 @@ public class Tiles {
 				}
 			}
 		}
+		System.out.println(r + " " + c);
 		if(tileId[r+x][c+y] == 0) { // if Id of 0 replaces and moves head in the predefined direction
 			tileId[r+x][c+y] = 1; // Moves Head in correct direction
-			tileId[r][c] = 2; // Sets old head to body in direction
+			tileId[r][c] = 3; // Sets old head to body in direction
 		}else if(tileId[r+x][c+y] == 2) { // same first operation but add 1 length (FOOD CONSUMED)
 			tileId[r+x][c+y] = 1;
 			tileId[r][c] = 3;

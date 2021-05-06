@@ -27,7 +27,7 @@ import javax.swing.border.Border;
 public class MainPanel extends JPanel implements MouseListener, ActionListener, KeyListener{
 	//private Timer animationTimer;
 	private Color bg;
-	private int x = 0, y = 0, bpm = 130;
+	private int x = 0, y = 0, bpm = 130, upPress = 0;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
 	private JLabel menu = new JLabel(image);
 	private JLabel snakeHead = new JLabel(new ImageIcon(getClass().getResource("SnakeHead.png")));
@@ -236,20 +236,24 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		// TODO Auto-generated method stub
 		switch(arg0.getKeyCode()) { //recives button input and asks for movement
 		case 38: //up
-			mainBoard.move(3);			
+			mainBoard.move(3);
+			update(mainBoard);
 			break;
 		case 40: //down
 			mainBoard.move(4);
+			update(mainBoard);
 			break;
 		case 37: //left
 			mainBoard.move(1);
+			update(mainBoard);
 			break;
 		case 39://right
 			mainBoard.move(2);
+			update(mainBoard);
 			break;
 		}
-		System.out.println("pressed");
-		update(mainBoard);
+	
+		
 	}
 
 	@Override
