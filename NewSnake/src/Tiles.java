@@ -52,24 +52,36 @@ public class Tiles {
 	public int[][] getTileId(){
 		return tileId;
 	}
+	public int[][] getTileTime(){
+		return tileTime;
+	}
+	public void advTime() {
+		for(int r = 0; r < tileTime.length; r++) {
+			for(int c = 0; c <tileTime[r].length; c++) {
+				if(tileTime[r][c] != 0 ) {
+					tileTime[r][c] -= 1;
+				}
+			}
+		}
+	} 
 	//-----------------------------------------------------------------------------------------------
 	
 	public void move(int dir) { // moves depending on the button input
-		timeAdv();
+		advTime();
 		if(dir != rot) {
 			rot = dir;
 		}
 			if(dir == 1) { 
-				check(0,-1);
+				collision(0,-1);
 				// TODO sets body to up direction (UP)
 			}else if(dir == 2) {
-				check(0,1);
+				collision(0,1);
 				// TODO sets body to down direction (DOWN)
 			}else if(dir == 3) { 
-				check(-1,0);
+				collision(-1,0);
 				// TODO sets body to left direction (LEFT)
 			}else{
-				check(1,0);
+				collision(1,0);
 				// TODO sets body to right direction (RIGHT)
 			}
 			
@@ -77,7 +89,7 @@ public class Tiles {
 	
 	//-----------------------------------------------------------------------------------------------
 	
-	public void check(int x, int y){ // checks for collision from movement and moves the head
+	public void collision(int x, int y){ // checks for collision from movement and moves the head
 		int r = 0, c = 0;
 		for(int i = 0; i < tileId.length; i++) {
 			for(int j = 0; j < tileId[0].length; j++) { // iterates through the entire array to find the head
@@ -91,9 +103,11 @@ public class Tiles {
 		if(tileId[r+x][c+y] == 0) { // if Id of 0 replaces and moves head in the predefined direction
 			tileId[r+x][c+y] = 1; // Moves Head in correct direction
 			tileId[r][c] = 3; // Sets old head to body in direction
+			tileTime[r][c] = length;
 		}else if(tileId[r+x][c+y] == 2) { // same first operation but add 1 length (FOOD CONSUMED)
 			tileId[r+x][c+y] = 1;
 			tileId[r][c] = 3;
+			tileTime[r][c] = length;
 			length++;
 		}else{ // checks for id 2+ which leads to death
 			
@@ -104,23 +118,18 @@ public class Tiles {
 	
 	//-----------------------------------------------------------------------------------------------
 	
-	public void food(){
-		//TODO food timer
-	}
-	
-	//-----------------------------------------------------------------------------------------------
-	
-	public void body(){
+	public void check(){
 		//TODO Body timer and sprite direction setter
-	}
-	
-	//-----------------------------------------------------------------------------------------------
-	
-	public void timeAdv() {
-		// TODO updates all decay timings
-		ttd--;
-	}
-	
+		for(int r = 0; r < tileTime.length; r++) {
+			for(int c = 0; c <tileTime[r].length; c++) {
+				if(tileTime[r][c] == 0 ) {
+					if(tileId[r][c] == 3) { // body timer
+						tileId[r][c] = 0; 
+					}
+				}
+			}
+		}
+	}	
 }	
 
 	
