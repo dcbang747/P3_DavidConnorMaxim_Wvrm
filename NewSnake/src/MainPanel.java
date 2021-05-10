@@ -15,6 +15,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -71,8 +74,17 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		GridBagLayout g = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		main.setLayout(g);
-		
-		menu.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
+	
+		 try{
+		      AudioInputStream audioInputStream =AudioSystem.getAudioInputStream(this.getClass().getResource("/NewSnake/src/MainMenua.mp3"));
+		     Clip clip = AudioSystem.getClip();
+		     clip.open(audioInputStream);
+		     clip.start( );
+		    }
+		   catch(Exception ex)
+		   {  }
+		 
+		 menu.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
 		c.fill = GridBagConstraints.NONE;
 		c.gridwidth = 3;
 		c.gridx = 0;
