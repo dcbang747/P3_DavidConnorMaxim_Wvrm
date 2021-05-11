@@ -76,6 +76,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("MainMenua.wav"));
 		     Clip clip = AudioSystem.getClip();
 		     clip.open(audioInputStream);
+		     System.out.println(clip.getMicrosecondLength());
 		     clip.start( );
 		    }
 		   catch(Exception ex)
