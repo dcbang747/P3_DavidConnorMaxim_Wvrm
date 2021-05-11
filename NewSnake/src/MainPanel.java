@@ -76,7 +76,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("MainMenua.wav"));
 		     Clip clip = AudioSystem.getClip();
 		     clip.open(audioInputStream);
-		     System.out.println(clip.getMicrosecondLength());
+		     clip.setMicrosecondPosition(43000000);
+		     clip.loop(clip.LOOP_CONTINUOUSLY);
 		     clip.start( );
 		    }
 		   catch(Exception ex)
@@ -85,7 +86,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	
 	public void initMainMenu() {
 		// initializing the menu; making the central panel display 
-		playIntro();
+		
 		GridBagLayout g = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		main.setLayout(g);
@@ -128,7 +129,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.pack();
 		frame.setVisible(true);
 		frame.setResizable(false);
-		
+		playIntro();
 	}
 	
 	public void initOptions() {
