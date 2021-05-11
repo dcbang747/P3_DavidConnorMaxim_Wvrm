@@ -39,7 +39,7 @@ public class Tiles {
 			for(int j = 0; j < tileId[0].length; j++) {
 				//Initializes body based on length
 				if(i > 4 && i < 4+length && j == 7) {
-					tileId[i][j] = 2;
+					tileId[i][j] = 3;
 				}else {
 					tileId[i][j] = 0;
 				}
@@ -68,6 +68,7 @@ public class Tiles {
 	
 	public void move(int dir) { // moves depending on the button input
 		advTime();
+		check();
 		if(dir != rot) {
 			rot = dir;
 		}

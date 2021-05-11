@@ -13,6 +13,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
@@ -69,20 +71,23 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		initMainMenu();
 	}
 	
-	public void initMainMenu() {
-		// initializing the menu; making the central panel display 
-		GridBagLayout g = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
-		main.setLayout(g);
-	
+	public void playIntro() {
 		 try{
-		      AudioInputStream audioInputStream =AudioSystem.getAudioInputStream(this.getClass().getResource("/NewSnake/src/MainMenua.mp3"));
+		      AudioInputStream audioInputStream =AudioSystem.getAudioInputStream(new FileInputStream(new File("MainMenu.wav"));
 		     Clip clip = AudioSystem.getClip();
 		     clip.open(audioInputStream);
 		     clip.start( );
 		    }
 		   catch(Exception ex)
-		   {  }
+		   {  ex.printStackTrace();}
+	}
+	
+	public void initMainMenu() {
+		// initializing the menu; making the central panel display 
+		playIntro();
+		GridBagLayout g = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();
+		main.setLayout(g);
 		 
 		 menu.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
 		c.fill = GridBagConstraints.NONE;
