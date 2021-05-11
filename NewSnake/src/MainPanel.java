@@ -126,10 +126,12 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		c.gridx = 2;
 		main.add(exitButton, c);
 		
+		playIntro();
+		
 		frame.pack();
 		frame.setVisible(true);
 		frame.setResizable(false);
-		playIntro();
+		
 	}
 	
 	public void initOptions() {
