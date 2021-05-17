@@ -32,6 +32,8 @@ import javax.swing.border.MatteBorder;
 
 public class MainPanel extends JPanel implements MouseListener, ActionListener, KeyListener{
 	//private Timer animationTimer;
+	private int mus = 0;
+	private URL music = this.getClass().getResource("MainMenua.wav");
 	private Color bg, sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 	private int x = 0, y = 0, bpm = 130, upPress = 0;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
@@ -72,16 +74,24 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	}
 	
 	public void playIntro() {
-		 try{
-		     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource("MainMenua.wav"));
+		 
+		try{
+		     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(music);
 		     Clip clip = AudioSystem.getClip();
 		     clip.open(audioInputStream);
 		     clip.setMicrosecondPosition(43000000);
 		     clip.loop(clip.LOOP_CONTINUOUSLY);
-		     clip.start( );
+		     clip.start();
+		     while(true) {
+		    	 if(mus != 0) {
+		    		 break;
+		    	 }
+		     }
+		     clip.stop();
 		    }
 		   catch(Exception ex)
 		   {  ex.printStackTrace();}
+		
 	}
 	
 	public void initMainMenu() {
@@ -165,7 +175,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	public void setUp(int bpm, Tiles f) {
 		frame.remove(main);
 		
-		
+		mus++;
 		
 		this.bpm = bpm;
 		Timer animationTimer = new Timer(60000/bpm,this);
@@ -173,7 +183,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		GridLayout g = new GridLayout(16, 10);
 		BorderLayout e = new BorderLayout();
 		frame.setLayout(e);
-		
 		frame.setFocusable(true);
 		frame.requestFocusInWindow();
 		
