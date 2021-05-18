@@ -59,8 +59,13 @@ public class Tiles {
 		for(int r = 0; r < tileTime.length; r++) {
 			for(int c = 0; c <tileTime[r].length; c++) {
 				if(tileTime[r][c] != 0 ) {
-					tileTime[r][c] -= 1;
+					tileTime[r][c] -= 1;	
+					}
+				int rand = (int)(Math.random()*1000);
+				if(rand == 1 && tileId[r][c] == 0 ) {
+					tileId[r][c] = 2;
 				}
+				
 			}
 		}
 	} 

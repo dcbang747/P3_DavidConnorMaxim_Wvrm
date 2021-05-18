@@ -82,12 +82,12 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		     clip.setMicrosecondPosition(43000000);
 		     clip.loop(clip.LOOP_CONTINUOUSLY);
 		     clip.start();
-		     while(true) {
-		    	 if(mus != 0) {
-		    		 break;
-		    	 }
-		     }
-		     clip.stop();
+//		     while(true) {
+//		    	 if(mus != 0) {
+//		    		 break;
+//		    	 }
+//		     }
+//		     clip.stop();
 		    }
 		   catch(Exception ex)
 		   {  ex.printStackTrace();}
@@ -136,7 +136,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		c.gridx = 2;
 		main.add(exitButton, c);
 		
-		playIntro();
+		//playIntro();
 		
 		frame.pack();
 		frame.setVisible(true);
