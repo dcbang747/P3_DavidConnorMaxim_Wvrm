@@ -25,7 +25,9 @@ public class Tiles {
 	int[][] tileTime = new int[15][10];
 	int length = 5;
 	int rot = 1;
+	int foodCount = 0;
 	int ttd = 10; // time to death
+	boolean isGameOver = false;
 	/* IDs: 
 	 * 0: empty
 	 * 1: Head
@@ -61,9 +63,10 @@ public class Tiles {
 				if(tileTime[r][c] != 0 ) {
 					tileTime[r][c] -= 1;	
 					}
-				int rand = (int)(Math.random()*1000);
-				if(rand == 1 && tileId[r][c] == 0 ) {
+				int rand = (int)(Math.random()*4000);
+				if(rand == 1 && tileId[r][c] == 0 && foodCount < 2) {
 					tileId[r][c] = 2;
+					foodCount++;
 				}
 				
 			}
@@ -115,8 +118,10 @@ public class Tiles {
 			tileId[r][c] = 3;
 			tileTime[r][c] = length;
 			length++;
-		}else{ // checks for id 2+ which leads to death
-			
+			foodCount--;
+		}
+		else{ // checks for id 2+ which leads to death
+			isGameOver();
 			// TODO game over screen 
 		}
 		
@@ -135,7 +140,13 @@ public class Tiles {
 				}
 			}
 		}
-	}	
+	}
+	
+	public boolean isGameOver() {
+		isGameOver = true;
+		return isGameOver;
+	}
+	
 }	
 
 	

@@ -219,6 +219,9 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 			sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 			game.setBorder(new MatteBorder(3,3,3, 3, sideColor));
 		}
+		if(f.isGameOver == true) {
+			frame.dispose();
+		}
 	}
 	
 	@Override
