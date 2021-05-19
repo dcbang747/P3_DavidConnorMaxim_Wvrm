@@ -41,8 +41,9 @@ public class Tiles {
 		for(int i = 0; i < tileId.length; i++) {
 			for(int j = 0; j < tileId[0].length; j++) {
 				//Initializes body based on length
-				if(i > 4 && i < 4+length && j == 7) {
+				if(i > 4 && i < 5+length && j == 7) {
 					tileId[i][j] = 3;
+					tileTime[i][j] = 10-i;
 				}else {
 					tileId[i][j] = 0;
 				}
