@@ -26,6 +26,7 @@ public class Tiles {
 	int length = 5;
 	int rot = 1;
 	int foodCount = 0;
+	int prevX = 0, prevY = 0;
 	int ttd = 10; // time to death
 	boolean isGameOver = false;
 	/* IDs: 
@@ -109,7 +110,11 @@ public class Tiles {
 			}
 		}
 		System.out.println(r + " " + c);
-		if(tileId[r+x][c+y] == 0) { // if Id of 0 replaces and moves head in the predefined direction
+		
+		if((r == 0 && x == -1) || (r == 12 && y == 1)) {
+			isGameOver();
+		}
+		else if(tileId[r+x][c+y] == 0) { // if Id of 0 replaces and moves head in the predefined direction
 			tileId[r+x][c+y] = 1; // Moves Head in correct direction
 			tileId[r][c] = 3; // Sets old head to body in direction
 			tileTime[r][c] = length;
@@ -121,9 +126,12 @@ public class Tiles {
 			foodCount--;
 		}
 		else{ // checks for id 2+ which leads to death
-			isGameOver();
+			//isGameOver();
 			// TODO game over screen 
 		}
+		System.out.println(prevY + " " + prevX);
+		prevY = r;
+		prevX = c;
 		
 	}
 	
