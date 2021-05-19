@@ -180,7 +180,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		this.bpm = bpm;
 		Timer animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
-		GridLayout g = new GridLayout(16, 10);
+		GridLayout g = new GridLayout(15, 10);
 		BorderLayout e = new BorderLayout();
 		frame.setLayout(e);
 		frame.setFocusable(true);
@@ -199,7 +199,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		for(int i = 0; i < b.length; i++) {
 			for(int j = 0; j < b[0].length; j++) {
 				b[i][j] = new DisplayTile();
-				b[i][j].setValue(f.getTileId()[i][j]);
+				b[i][j].setValue(f.getTileId()[i+1][j+1]);
 				game.add(b[i][j]);
 			}
 		}
@@ -214,7 +214,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	public void update(Tiles f) {
 		for(int i = 0; i < b.length; i++) {
 			for(int j = 0; j < b[0].length; j++) {
-				b[i][j].setValue(f.getTileId()[i][j]);
+				b[i][j].setValue(f.getTileId()[i+1][j+1]);
 			}
 			sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 			game.setBorder(new MatteBorder(3,3,3, 3, sideColor));

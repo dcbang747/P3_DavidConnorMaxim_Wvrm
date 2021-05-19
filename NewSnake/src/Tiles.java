@@ -21,8 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 public class Tiles {
-	int[][] tileId = new int[15][10];
-	int[][] tileTime = new int[15][10];
+	int[][] tileId = new int[17][12];
+	int[][] tileTime = new int[17][12];
 	int length = 5;
 	int rot = 1;
 	int foodCount = 0;
@@ -64,7 +64,7 @@ public class Tiles {
 				if(tileTime[r][c] != 0 ) {
 					tileTime[r][c] -= 1;	
 					}
-				int rand = (int)(Math.random()*4000);
+				int rand = (int)(Math.random()*2500);
 				if(rand == 1 && tileId[r][c] == 0 && foodCount < 2) {
 					tileId[r][c] = 2;
 					foodCount++;
@@ -111,14 +111,11 @@ public class Tiles {
 		}
 		System.out.println(r + " " + c);
 		
-		if((r == 0 && x == -1) || (r == 12 && y == 1)) {
-			isGameOver();
-		}
-		else if(tileId[r+x][c+y] == 0) { // if Id of 0 replaces and moves head in the predefined direction
+		if(tileId[r+x][c+y] == 0 && (r+x < tileId.length-1 && r+x > 0 && c+y < tileId[r].length-1 && c+y > 0)) { // if Id of 0 replaces and moves head in the predefined direction
 			tileId[r+x][c+y] = 1; // Moves Head in correct direction
 			tileId[r][c] = 3; // Sets old head to body in direction
 			tileTime[r][c] = length;
-		}else if(tileId[r+x][c+y] == 2) { // same first operation but add 1 length (FOOD CONSUMED)
+		}else if(tileId[r+x][c+y] == 2 && (r+x < tileId.length-1 && r+x > 0 && c+y < tileId[r].length-1 && c+y > 0)) { // same first operation but add 1 length (FOOD CONSUMED)
 			tileId[r+x][c+y] = 1;
 			tileId[r][c] = 3;
 			tileTime[r][c] = length;
@@ -126,12 +123,9 @@ public class Tiles {
 			foodCount--;
 		}
 		else{ // checks for id 2+ which leads to death
-			//isGameOver();
+			isGameOver();
 			// TODO game over screen 
 		}
-		System.out.println(prevY + " " + prevX);
-		prevY = r;
-		prevX = c;
 		
 	}
 	
