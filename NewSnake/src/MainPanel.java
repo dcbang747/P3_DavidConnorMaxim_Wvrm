@@ -228,7 +228,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	}
 	
 	public void gameOver() {
-		frame.dispose();
+		mainBoard = new Tiles();
+		
 	}
 	
 	
