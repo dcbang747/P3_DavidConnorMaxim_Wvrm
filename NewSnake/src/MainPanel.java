@@ -37,6 +37,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private Color bg, sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 	private int x = 0, y = 0, bpm = 130, upPress = 0;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
+	private ImageIcon ending = new ImageIcon(getClass().getResource("Game over screen.gif"));
 	private JLabel menu = new JLabel(image);
 	private JLabel snakeHead = new JLabel(new ImageIcon(getClass().getResource("SnakeHead.png")));
 	private JLabel snakeBody = new JLabel(new ImageIcon(getClass().getResource("SnakeBody.png")));
@@ -46,7 +47,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private DisplayTile[][] b = new DisplayTile[15][10];
 	public static JFrame frame = new JFrame("Snake");
 	//creating panels for the sides.
-	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel(), options = new JPanel(), game = new JPanel();
+	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel(), options = new JPanel(), game = new JPanel(), end = new JPanel();
 	//creating board
 	Tiles mainBoard = new Tiles();
 	
@@ -165,11 +166,13 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		
 	}
 	public void setToOptions() {
-		frame.setContentPane(options);
+		frame.remove(main);
+		frame.add(options);
 		frame.revalidate();
 	}
 	public void setToMainMenu() {
-		frame.setContentPane(main);
+		frame.remove(options);
+		frame.add(main);
 		frame.revalidate();
 	}
 	public void setUp(int bpm, Tiles f) {
@@ -220,9 +223,14 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 			game.setBorder(new MatteBorder(3,3,3, 3, sideColor));
 		}
 		if(f.isGameOver == true) {
-			frame.dispose();
+			gameOver();
 		}
 	}
+	
+	public void gameOver() {
+		frame.dispose();
+	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
