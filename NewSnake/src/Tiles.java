@@ -144,7 +144,7 @@ public class Tiles {
 					if(tileId[r][c] == 3) { // body timer
 						tileId[r][c] = 0; 
 					}
-					if(tileId[r][c] == 4) {
+					if(tileTime[r][c] == 4) {
 						tileId[r][c] = 0;
 					}
 				}
