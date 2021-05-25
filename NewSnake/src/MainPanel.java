@@ -174,10 +174,11 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.revalidate();
 	}
 	public void setUp(int bpm, Tiles f) {
-		frame.remove(main);
-		
 		mus++;
-		
+		main.remove(menu);
+		main.remove(startButton);
+		main.remove(optionsButton);
+		main.remove(exitButton);
 		this.bpm = bpm;
 		Timer animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
@@ -209,7 +210,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.add(side2, BorderLayout.EAST);
 		frame.revalidate();
 		game.requestFocusInWindow();
-		
 	}
 	
 	public void update(Tiles f) {
