@@ -166,13 +166,11 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		
 	}
 	public void setToOptions() {
-		frame.remove(main);
-		frame.add(options);
+		frame.setContentPane(options);
 		frame.revalidate();
 	}
 	public void setToMainMenu() {
-		frame.remove(options);
-		frame.add(main);
+		frame.setContentPane(main);
 		frame.revalidate();
 	}
 	public void setUp(int bpm, Tiles f) {
