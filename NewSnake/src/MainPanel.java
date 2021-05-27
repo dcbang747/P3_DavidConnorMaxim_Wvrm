@@ -31,9 +31,7 @@ import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
 public class MainPanel extends JPanel implements MouseListener, ActionListener, KeyListener{
-	//private Timer animationTimer;
-	private int mus = 0;
-	private URL music = this.getClass().getResource("MainMenua.wav");
+	
 	private Color bg, sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 	private int x = 0, y = 0, bpm = 130, upPress = 0;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
@@ -74,26 +72,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		initMainMenu();
 	}
 	
-	public void playIntro() {
-		 
-		try{
-		     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(music);
-		     Clip clip = AudioSystem.getClip();
-		     clip.open(audioInputStream);
-		     clip.setMicrosecondPosition(43000000);
-		     clip.loop(clip.LOOP_CONTINUOUSLY);
-		     clip.start();
-//		     while(true) {
-//		    	 if(mus != 0) {
-//		    		 break;
-//		    	 }
-//		     }
-//		     clip.stop();
-		    }
-		   catch(Exception ex)
-		   {  ex.printStackTrace();}
-		
-	}
 	
 	public void initMainMenu() {
 		// initializing the menu; making the central panel display 
@@ -137,7 +115,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		c.gridx = 2;
 		main.add(exitButton, c);
 		
-		//playIntro();
+
 		
 		frame.pack();
 		frame.setVisible(true);
@@ -174,11 +152,12 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.revalidate();
 	}
 	public void setUp(int bpm, Tiles f) {
-		mus++;
 		main.remove(menu);
 		main.remove(startButton);
 		main.remove(optionsButton);
 		main.remove(exitButton);
+		frame.remove(main);
+		
 		this.bpm = bpm;
 		Timer animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
@@ -227,7 +206,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	
 	public void gameOver() {
 		mainBoard = new Tiles();
-		
+		update(mainBoard);
 	}
 	
 	
@@ -278,7 +257,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		switch(arg0.getKeyCode()) { //recives button input and asks for movement
+		switch(arg0.getKeyCode()) { //Receives button input and asks for movement
 		case 38: //up
 			mainBoard.move(3);
 			update(mainBoard);
