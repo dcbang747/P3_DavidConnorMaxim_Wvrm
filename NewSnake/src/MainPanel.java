@@ -130,6 +130,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	            AudioInputStream audio = AudioSystem.getAudioInputStream(this.getClass().getResource("MainMenua.wav"));
 	            clip1 = AudioSystem.getClip();
 	            clip1.open(audio);
+	            clip1.setMicrosecondPosition(43000000);
 
 
 	        }catch(Exception ex)
@@ -178,9 +179,12 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.setContentPane(main);
 		frame.revalidate();
 	}
+	public void setBpm(int b) {
+		this.bpm = b;
+	}
 	public void setUp(int bpm, Tiles f) {
 		stopIntro();
-		
+		// initialises screen for gameboard
 		main.remove(menu);
 		main.remove(startButton);
 		main.remove(optionsButton);
@@ -251,6 +255,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		if(e.getSource().equals(startButton)) {
 			this.setUp(bpm, mainBoard);
 		}
+		mainBoard.setMusk(1);
 	}
 
 	@Override

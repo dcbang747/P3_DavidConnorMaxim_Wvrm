@@ -20,9 +20,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
-public class Tiles {
+public class Tiles implements ActionListener{
+	int musk,grace = 0;
 	int[][] tileId = new int[17][12];
 	int[][] tileTime = new int[17][12];
+	Timer animationTimer = new Timer(10000,this);
 	int length = 5;
 	int rot = 1;
 	int foodCount = 0, obstacleCount = 0;
@@ -83,9 +85,10 @@ public class Tiles {
 	public void move(int dir) { // moves depending on the button input
 		advTime();
 		check();
-		if(dir != rot) {
-			rot = dir;
-		}
+		if(musk == 1) {
+			if(dir != rot) {
+				rot = dir;
+			}
 			if(dir == 1) { 
 				collision(0,-1);
 				// TODO sets body to up direction (UP)
@@ -99,7 +102,12 @@ public class Tiles {
 				collision(1,0);
 				// TODO sets body to right direction (RIGHT)
 			}
-			
+		}else if(grace == 0){// one grace move
+			grace++;
+		}else{ //PENTALTY >:0
+			grace = 0;
+			length--;
+		}	
 	}
 	
 	//-----------------------------------------------------------------------------------------------
@@ -156,7 +164,15 @@ public class Tiles {
 		isGameOver = true;
 		return isGameOver;
 	}
-	
+	public void setMusk(int i) {
+		musk = i;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		musk = 1;
+	}
+
 }	
 
 	
