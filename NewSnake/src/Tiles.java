@@ -25,7 +25,7 @@ public class Tiles {
 	int[][] tileTime = new int[17][12];
 	int length = 5;
 	int rot = 1;
-	int foodCount = 0;
+	int foodCount = 0, obstacleCount = 0;
 	int prevX = 0, prevY = 0;
 	int ttd = 10; // time to death
 	boolean isGameOver = false;
@@ -70,7 +70,11 @@ public class Tiles {
 					tileId[r][c] = 2;
 					foodCount++;
 				}
-				
+				int randy = (int)(Math.random()*2500);
+				if(randy == 1 && tileId[r][c] == 0 && obstacleCount < 2) {
+					tileId[r][c] = 4;
+					obstacleCount++;
+				}
 			}
 		}
 	} 
@@ -139,6 +143,9 @@ public class Tiles {
 				if(tileTime[r][c] == 0 ) {
 					if(tileId[r][c] == 3) { // body timer
 						tileId[r][c] = 0; 
+					}
+					if(tileTime[r][c] == 4) {
+						tileId[r][c] = 0;
 					}
 				}
 			}

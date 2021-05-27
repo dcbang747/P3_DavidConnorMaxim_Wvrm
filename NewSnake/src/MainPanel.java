@@ -19,6 +19,7 @@ import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,10 +32,10 @@ import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
 public class MainPanel extends JPanel implements MouseListener, ActionListener, KeyListener{
-	//private Timer animationTimer;
-	//SoundLogic intro = new SoundLogic("MainMenua.wav");
+	
 	private Color bg, sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 	private int x = 0, y = 0, bpm = 130, upPress = 0;
+	private Clip clip1 = null;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
 	private ImageIcon ending = new ImageIcon(getClass().getResource("Game over screen.gif"));
 	private JLabel menu = new JLabel(image);
@@ -116,12 +117,37 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		c.gridx = 2;
 		main.add(exitButton, c);
 		
-
+		playIntro();
 		
 		frame.pack();
 		frame.setVisible(true);
 		frame.setResizable(false);
 		
+	}
+	public void playIntro() {
+		 try {
+
+	            AudioInputStream audio = AudioSystem.getAudioInputStream(this.getClass().getResource("MainMenua.wav"));
+	            clip1 = AudioSystem.getClip();
+	            clip1.open(audio);
+
+
+	        }catch(Exception ex)
+	           { 
+	            System.out.println("error in audio");
+	            ex.printStackTrace();
+	            }
+		 	
+	        clip1.start();
+	        clip1.loop(clip1.LOOP_CONTINUOUSLY);
+	        }
+	
+	public void stopIntro() {
+
+	        BooleanControl mute = (BooleanControl) clip1.getControl(BooleanControl.Type.MUTE);
+	        mute.setValue(true);
+	        clip1.loop(0);
+	        clip1.flush();
 	}
 	
 	public void initOptions() {
@@ -153,9 +179,13 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.revalidate();
 	}
 	public void setUp(int bpm, Tiles f) {
-		frame.remove(main);
+		stopIntro();
 		
-		//mus++;
+		main.remove(menu);
+		main.remove(startButton);
+		main.remove(optionsButton);
+		main.remove(exitButton);
+		frame.remove(main);
 		
 		this.bpm = bpm;
 		Timer animationTimer = new Timer(60000/bpm,this);
@@ -188,7 +218,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.add(side2, BorderLayout.EAST);
 		frame.revalidate();
 		game.requestFocusInWindow();
-		
 	}
 	
 	public void update(Tiles f) {
@@ -206,7 +235,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	
 	public void gameOver() {
 		mainBoard = new Tiles();
-		
+		update(mainBoard);
 	}
 	
 	
@@ -257,7 +286,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		switch(arg0.getKeyCode()) { //recives button input and asks for movement
+		switch(arg0.getKeyCode()) { //Receives button input and asks for movement
 		case 38: //up
 			mainBoard.move(3);
 			update(mainBoard);

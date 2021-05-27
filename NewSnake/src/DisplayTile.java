@@ -30,6 +30,9 @@ public class DisplayTile extends JLabel{
 		if(n == 2) {
 			this.setBackground(Color.yellow);
 		}
+		if(n == 4) {
+			this.setBackground(Color.cyan);
+		}
 	}
 	
 }
