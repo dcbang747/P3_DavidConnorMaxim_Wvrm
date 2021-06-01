@@ -34,7 +34,7 @@ import javax.swing.border.MatteBorder;
 public class MainPanel extends JPanel implements MouseListener, ActionListener, KeyListener{
 	
 	private Color bg, sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
-	private int x = 0, y = 0, bpm = 130, upPress = 0;
+	private int x = 0, y = 0, bpm = 130, upPress = 0, musk = 0, setdir = 3;
 	private Clip clip1 = null;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
 	private ImageIcon ending = new ImageIcon(getClass().getResource("Game over screen.gif"));
@@ -147,7 +147,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 
 	        BooleanControl mute = (BooleanControl) clip1.getControl(BooleanControl.Type.MUTE);
 	        mute.setValue(true);
-	        clip1.loop(0);
 	        clip1.flush();
 	}
 	
@@ -182,16 +181,37 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	public void setBpm(int b) {
 		this.bpm = b;
 	}
-	public void setUp(int bpm, Tiles f) {
+	public void playGame(){
+		 try {
+
+	            AudioInputStream audio = AudioSystem.getAudioInputStream(this.getClass().getResource("12.wav"));
+	            clip1 = AudioSystem.getClip();
+	            clip1.open(audio);
+	            
+
+
+	        }catch(Exception ex)
+	           { 
+	            System.out.println("error in audio");
+	            ex.printStackTrace();
+	            }
+		 	
+	        clip1.start();
+	        clip1.loop(clip1.LOOP_CONTINUOUSLY);
+	        bpm = 152;
+	}
+
+	public void setUp(Tiles f) {
 		stopIntro();
 		// initialises screen for gameboard
+		playGame();
+		
 		main.remove(menu);
 		main.remove(startButton);
 		main.remove(optionsButton);
 		main.remove(exitButton);
 		frame.remove(main);
 		
-		this.bpm = bpm;
 		Timer animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
 		GridLayout g = new GridLayout(15, 10);
@@ -253,9 +273,19 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 			frame.dispose();
 		}
 		if(e.getSource().equals(startButton)) {
-			this.setUp(bpm, mainBoard);
+			this.setUp(mainBoard);
 		}
-		mainBoard.setMusk(1);
+		musk = 1;
+		mainBoard.move(setdir, musk);
+		update(mainBoard);
+		
+		Timer yeet = new Timer(2000, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			musk = 0;
+			}
+		});
+		yeet.setRepeats(false);
+		yeet.start();
 	}
 
 	@Override
@@ -291,25 +321,33 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		if(musk ==1) {
 		switch(arg0.getKeyCode()) { //Receives button input and asks for movement
 		case 38: //up
-			mainBoard.move(3);
+			setdir = 3;
+			mainBoard.move(setdir, musk);
 			update(mainBoard);
 			break;
 		case 40: //down
-			mainBoard.move(4);
+			setdir = 4;
+			mainBoard.move(setdir, musk);
 			update(mainBoard);
 			break;
 		case 37: //left
-			mainBoard.move(1);
+			setdir = 1;
+			mainBoard.move(setdir, musk);
 			update(mainBoard);
 			break;
 		case 39://right
-			mainBoard.move(2);
+			setdir = 2;
+			mainBoard.move(setdir, musk);
 			update(mainBoard);
 			break;
 		}
-	
+		}else {
+			mainBoard.penalty();
+			update(mainBoard);
+		}
 		
 	}
 

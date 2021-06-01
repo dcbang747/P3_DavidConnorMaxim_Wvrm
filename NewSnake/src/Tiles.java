@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 public class Tiles implements ActionListener{
-	int musk,grace = 0;
+	int musk = 1,grace = 0;
 	int[][] tileId = new int[17][12];
 	int[][] tileTime = new int[17][12];
 	Timer animationTimer = new Timer(10000,this);
@@ -82,7 +82,8 @@ public class Tiles implements ActionListener{
 	} 
 	//-----------------------------------------------------------------------------------------------
 	
-	public void move(int dir) { // moves depending on the button input
+	public void move(int dir, int musk) { // moves depending on the button input
+		this.musk = musk;
 		advTime();
 		check();
 		if(musk == 1) {
@@ -122,8 +123,7 @@ public class Tiles implements ActionListener{
 				}
 			}
 		}
-		System.out.println(r + " " + c);
-		
+		if(length <= 1) { isGameOver();}
 		if(tileId[r+x][c+y] == 0 && (r+x < tileId.length-1 && r+x > 0 && c+y < tileId[r].length-1 && c+y > 0)) { // if Id of 0 replaces and moves head in the predefined direction
 			tileId[r+x][c+y] = 1; // Moves Head in correct direction
 			tileId[r][c] = 3; // Sets old head to body in direction
@@ -164,13 +164,16 @@ public class Tiles implements ActionListener{
 		isGameOver = true;
 		return isGameOver;
 	}
-	public void setMusk(int i) {
-		musk = i;
+	public void penalty() {
+		length--;
+		advTime();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		musk = 1;
+		musk = 0;
+		System.out.println(musk);
+		animationTimer.stop();
 	}
 
 }	
