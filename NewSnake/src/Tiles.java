@@ -103,8 +103,6 @@ public class Tiles implements ActionListener{
 				collision(1,0);
 				// TODO sets body to right direction (RIGHT)
 			}
-		}else if(grace == 0){// one grace move
-			grace++;
 		}else{ //PENTALTY >:0
 			grace = 0;
 			length--;

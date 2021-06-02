@@ -210,7 +210,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		main.remove(startButton);
 		main.remove(optionsButton);
 		main.remove(exitButton);
-		frame.remove(main);
+		//frame.remove(main);
 		
 		Timer animationTimer = new Timer(60000/bpm,this);
 		animationTimer.start();
@@ -219,7 +219,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.setLayout(e);
 		frame.setFocusable(true);
 		frame.requestFocusInWindow();
-		
 		game.setPreferredSize(new Dimension(image.getIconWidth(), image.getIconHeight()));
 		game.addKeyListener(this);
 		game.setFocusable(true);
@@ -257,7 +256,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	
 	public void gameOver() {
 		mainBoard = new Tiles();
-		update(mainBoard);
+		main.remove(game);
+		main.add(menu);
 	}
 	
 	
@@ -278,7 +278,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		update(mainBoard);
 		sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 		game.setBorder(new MatteBorder(3,3,3, 3, sideColor));
-		Timer yeet = new Timer(2000, new ActionListener() {
+		Timer yeet = new Timer(200, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			musk = 0;
 			}
