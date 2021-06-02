@@ -249,8 +249,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 			for(int j = 0; j < b[0].length; j++) {
 				b[i][j].setValue(f.getTileId()[i+1][j+1]);
 			}
-			sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
-			game.setBorder(new MatteBorder(3,3,3, 3, sideColor));
 		}
 		if(f.isGameOver == true) {
 			gameOver();
@@ -278,13 +276,15 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		musk = 1;
 		mainBoard.move(setdir, musk);
 		update(mainBoard);
-		
+		sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
+		game.setBorder(new MatteBorder(3,3,3, 3, sideColor));
 		Timer yeet = new Timer(2000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			musk = 0;
 			}
 		});
 		yeet.setRepeats(false);
+		yeet.setInitialDelay(2000);
 		yeet.start();
 	}
 
