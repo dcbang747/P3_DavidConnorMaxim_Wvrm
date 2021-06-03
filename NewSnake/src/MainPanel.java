@@ -34,10 +34,14 @@ import javax.swing.border.MatteBorder;
 public class MainPanel extends JPanel implements MouseListener, ActionListener, KeyListener{
 	
 	private Color bg, sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
-	private int x = 0, y = 0, bpm = 130, upPress = 0, musk = 0, setdir = 3;
+	private int x = 0, y = 0, bpm = 130, upPress = 0, musk = 0, setdir = 3, visFrame = 0;
 	private Clip clip1 = null;
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
 	private ImageIcon ending = new ImageIcon(getClass().getResource("Game over screen.gif"));
+	private ImageIcon visFrame6 = new ImageIcon(getClass().getResource("visualframe6real.png"));
+	private ImageIcon visFrame5 = new ImageIcon(getClass().getResource("visualframe5.png"));
+	private JLabel visframesix = new JLabel(visFrame6);
+	private JLabel visframefive = new JLabel(visFrame5);
 	private JLabel menu = new JLabel(image);
 	private JLabel snakeHead = new JLabel(new ImageIcon(getClass().getResource("SnakeHead.png")));
 	private JLabel snakeBody = new JLabel(new ImageIcon(getClass().getResource("SnakeBody.png")));
@@ -122,6 +126,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		frame.pack();
 		frame.setVisible(true);
 		frame.setResizable(false);
+		System.out.print(frame.getBounds());
 		
 	}
 	public void playIntro() {
@@ -216,6 +221,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		animationTimer.start();
 		GridLayout g = new GridLayout(15, 10);
 		BorderLayout e = new BorderLayout();
+	
 		frame.setLayout(e);
 		frame.setFocusable(true);
 		frame.requestFocusInWindow();
@@ -236,6 +242,28 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 				game.add(b[i][j]);
 			}
 		}
+		
+		GridLayout s = new GridLayout(2, 1);
+		side1.setLayout(s);
+		side1.add(visframefive, 0, 0);
+		Timer visTimer = new Timer((60000/bpm)/6,new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				visFrame++;
+				if(visFrame%2 == 0) {
+					side1.remove(visframefive);
+					side1.add(visframesix);
+					frame.validate();
+									}
+				else {
+					side1.remove(visframesix);
+					side1.add(visframefive);
+					frame.validate();
+				}
+			if(visFrame >= 6) {
+				visFrame = 0;
+			}
+			}});
+		visTimer.start();
 		frame.add(game);
 		frame.add(side1, BorderLayout.WEST);
 		frame.add(side2, BorderLayout.EAST);
@@ -256,8 +284,6 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	
 	public void gameOver() {
 		mainBoard = new Tiles();
-		main.remove(game);
-		main.add(menu);
 	}
 	
 	
@@ -274,17 +300,15 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 			this.setUp(mainBoard);
 		}
 		musk = 1;
-		mainBoard.move(setdir, musk);
 		update(mainBoard);
 		sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 		game.setBorder(new MatteBorder(3,3,3, 3, sideColor));
-		Timer yeet = new Timer(200, new ActionListener() {
+		Timer yeet = new Timer(300, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			musk = 0;
 			}
 		});
 		yeet.setRepeats(false);
-		yeet.setInitialDelay(2000);
 		yeet.start();
 	}
 
@@ -346,6 +370,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		}
 		}else {
 			mainBoard.penalty();
+			update(mainBoard);
 			update(mainBoard);
 		}
 		
