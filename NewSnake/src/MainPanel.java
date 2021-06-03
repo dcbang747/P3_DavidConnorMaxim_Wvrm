@@ -7,12 +7,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
@@ -26,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
@@ -221,7 +224,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		animationTimer.start();
 		GridLayout g = new GridLayout(15, 10);
 		BorderLayout e = new BorderLayout();
-	
+		frame.remove(side1);
 		frame.setLayout(e);
 		frame.setFocusable(true);
 		frame.requestFocusInWindow();
@@ -244,24 +247,28 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		}
 		
 		GridLayout s = new GridLayout(2, 1);
-		side1.setLayout(s);
-		side1.add(visframefive, 0, 0);
+		JLayeredPane animationPane = new JLayeredPane();
+		animationPane.setBounds(new Rectangle(1000, 200));
+		animationPane.add(visframefive);
+		frame.add(animationPane, BorderLayout.WEST);
+		animationPane.setVisible(true);
 		Timer visTimer = new Timer((60000/bpm)/6,new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				visFrame++;
-				if(visFrame%2 == 0) {
-					side1.remove(visframefive);
-					side1.add(visframesix);
-					frame.validate();
-									}
-				else {
-					side1.remove(visframesix);
-					side1.add(visframefive);
-					frame.validate();
-				}
-			if(visFrame >= 6) {
-				visFrame = 0;
-			}
+//				visFrame++;
+//				
+//				if(visFrame == 6) {
+//					side1.remove(visframefive);
+//					side1.add(visframesix);
+//					side1.revalidate();
+//									}
+//				if( visFrame == 5){
+//					side1.remove(visframesix);
+//					side1.add(visframefive);
+//					side1.revalidate();
+//				}
+//			if(visFrame >= 6) {
+//				visFrame = 0;
+//			}
 			}});
 		visTimer.start();
 		frame.add(game);
