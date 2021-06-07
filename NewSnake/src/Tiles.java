@@ -73,7 +73,7 @@ public class Tiles implements ActionListener{
 					foodCount++;
 				}
 				int randy = (int)(Math.random()*2500);
-				if(randy == 1 && tileId[r][c] == 0 && obstacleCount < 2) {
+				if(randy == 1 && tileId[r][c] == 0 && obstacleCount < 5) {
 					tileId[r][c] = 4;
 					obstacleCount++;
 				}

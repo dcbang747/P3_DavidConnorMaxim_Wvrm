@@ -3,11 +3,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -39,12 +41,9 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	private Color bg, sideColor = new Color((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 	private int x = 0, y = 0, bpm = 130, upPress = 0, musk = 0, setdir = 3, visFrame = 0;
 	private Clip clip1 = null;
+	
 	private ImageIcon image =  new ImageIcon(getClass().getResource("gang gang.gif"));
 	private ImageIcon ending = new ImageIcon(getClass().getResource("Game over screen.gif"));
-	private ImageIcon visFrame6 = new ImageIcon(getClass().getResource("visualframe6real.png"));
-	private ImageIcon visFrame5 = new ImageIcon(getClass().getResource("visualframe5.png"));
-	private JLabel visframesix = new JLabel(visFrame6);
-	private JLabel visframefive = new JLabel(visFrame5);
 	private JLabel menu = new JLabel(image);
 	private JLabel snakeHead = new JLabel(new ImageIcon(getClass().getResource("SnakeHead.png")));
 	private JLabel snakeBody = new JLabel(new ImageIcon(getClass().getResource("SnakeBody.png")));
@@ -57,9 +56,8 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 	public JPanel main = new JPanel(), side1 = new JPanel(), side2 = new JPanel(), options = new JPanel(), game = new JPanel(), end = new JPanel();
 	//creating board
 	Tiles mainBoard = new Tiles();
-	
+	animationPane anime = new animationPane();
 	public void paint(Graphics g) {
-		super.paintComponent(g);
 	}
 	
 	public MainPanel() {
@@ -247,13 +245,12 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 		}
 		
 		GridLayout s = new GridLayout(2, 1);
-		JLayeredPane animationPane = new JLayeredPane();
-		animationPane.setBounds(new Rectangle(1000, 200));
-		animationPane.add(visframefive);
-		frame.add(animationPane, BorderLayout.WEST);
-		animationPane.setVisible(true);
+		frame.add(anime, BorderLayout.WEST);
+		anime.setVisible(true);
+		
 		Timer visTimer = new Timer((60000/bpm)/6,new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 //				visFrame++;
 //				
 //				if(visFrame == 6) {
@@ -264,7 +261,7 @@ public class MainPanel extends JPanel implements MouseListener, ActionListener, 
 //				if( visFrame == 5){
 //					side1.remove(visframesix);
 //					side1.add(visframefive);
-//					side1.revalidate();
+//					side1.validate();
 //				}
 //			if(visFrame >= 6) {
 //				visFrame = 0;
